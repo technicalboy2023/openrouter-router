@@ -40,12 +40,14 @@ USAGE_FILE = "usage.json"
 lock = threading.Lock()
 cooldown = {}
 
+# ===== SESSION =====
 session = requests.Session()
 
+# ===== LOGGING =====
 logging.basicConfig(
-    filename="router.log",
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(message)s"
+filename="router.log",
+level=logging.INFO,
+format="%(asctime)s %(levelname)s %(message)s"
 )
 
 # ===== LOAD USAGE =====
@@ -142,7 +144,7 @@ def call_openrouter(messages,model):
                 if r.status_code in [429,403]:
 
                     cooldown[key] = time.time() + 10
-                    logging.warning(f"Key cooldown")
+                    logging.warning(f"Key cooldown {key}")
 
                     break
 
