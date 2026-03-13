@@ -2,51 +2,58 @@ OpenRouter AI Router
 
 OpenAI-compatible router for OpenRouter models.
 
-Allows using OpenRouter models with tools like n8n or OpenAI SDKs.
+Supports hundreds of AI models such as:
+
+- Llama
+- Mistral
+- Claude
+- Mixtral
+- Gemini via OpenRouter
 
 ---
 
 Features
 
-- Multiple API keys
-- Key rotation
-- Cooldown handling
+- Multiple OpenRouter API keys
+- Automatic key rotation
 - Usage tracking
 - Streaming support
 - OpenAI compatible API
+- n8n AI Agent integration
+- systemd service support
 
 ---
 
 Installation
 
-git clone https://github.com/technicalboy2023/openrouter-router.git
-cd openrouter-router
+cd /home/aman
+mkdir -p routers
+cd routers
 
-python3 -m venv venv
-source venv/bin/activate
-pip install fastapi uvicorn requests python-dotenv
+curl -O https://raw.githubusercontent.com/technicalboy2023/openrouter-router/main/install-router.sh
+chmod +x install-router.sh
+
+bash install-router.sh openrouter-router 8080
 
 ---
 
-Environment Variables
+Configure API Keys
 
-Create ".env" file:
+nano /home/aman/routers/openrouter-router/.env
+
+Example:
 
 OPENROUTER_KEY_1=sk-or-xxxx
 OPENROUTER_KEY_2=sk-or-xxxx
 OPENROUTER_KEY_3=
-OPENROUTER_KEY_4=
-OPENROUTER_KEY_5=
+
+Restart router:
+
+sudo systemctl restart openrouter-router
 
 ---
 
-Run
-
-uvicorn router:app --host 0.0.0.0 --port 8080
-
----
-
-API
+API Usage
 
 Chat
 
@@ -54,10 +61,12 @@ POST /v1/chat/completions
 
 Example:
 
-{
+curl http://localhost:8080/v1/chat/completions \
+-H "Content-Type: application/json" \
+-d '{
 "model":"openrouter/auto",
 "messages":[{"role":"user","content":"hello"}]
-}
+}'
 
 ---
 
@@ -73,15 +82,19 @@ GET /health
 
 ---
 
-Usage
+Service Commands
 
-GET /usage
+Restart router:
 
----
+sudo systemctl restart openrouter-router
 
-n8n Setup
+Stop router:
 
-Base URL: http://VPS_IP:8080/v1
+sudo systemctl stop openrouter-router
+
+Check status:
+
+systemctl status openrouter-router
 
 ---
 
