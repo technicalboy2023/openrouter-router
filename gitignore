@@ -1,0 +1,28 @@
+# ── Secrets ───────────────────────────────────
+.env
+
+# ── Python ────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# ── Runtime / generated files ─────────────────
+gateway.log
+router.log
+usage.json
+usage.json.tmp
+
+# ── OS ────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editor ────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
